@@ -87,7 +87,7 @@
 
     // configuration button
     function configure() {
-        const popupUrl = `${window.location.origin}/dialog.html`;
+        const popupUrl = `${window.location.href.replace(/[^/]*$/, '')}/dialog.html`;
 
         let input = "";
 
