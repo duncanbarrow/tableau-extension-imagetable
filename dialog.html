@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <div id="settings">
+                <h4>Image Table Settings</h4>
+                <div class="table-responsive">
+                    <table id="settingsTable" class="table table-striped hidden">
+                        <thead>
+                            <tr>
+                                <th>Setting Name</th>
+                                <th>Setting Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Source Sheet</td>
+                                <td>
+                                    <select id="sheetList">
+                                        <option disabled="true" selected="true">-- Select the source sheet --</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Image URL Field</td>
+                                <td>
+                                    <select id="imageUrlField" disabled="true">
+                                        <option disabled="true" selected="true">-- Select the field with the image URL --</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Show Label</td>
+                                <td>
+                                    <input type="checkbox" id="showLabel" disabled="true">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Label Field</td>
+                                <td>
+                                    <select id="labelField" disabled="true">
+                                        <option disabled="true" selected="true">-- Select the field with the image label --</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Label Allignment</td>
+                                <td>
+                                    <select id="lblHorAllign" disabled="true">
+                                        <option disabled="true" selected="true"></option>
+                                        <option value="left">Left</option>
+                                        <option value="center">Center</option>
+                                        <option value="right">Right</option>
+                                    </select>
+                                    <select id="lblVerAllign" disabled="true">
+                                            <option disabled = "true" selected="true"></option>
+                                            <option value="top">Top</option>
+                                            <option value="middle">Middle</option>
+                                            <option value="bottom">Bottom</option>
+                                        </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dashboard Action</td>
+                                <td>
+                                    <select id="dbAction" disabled="true">
+                                        <option selected="true">None</option>
+                                        <option value="parameter">Change Parameter Value</option>
+                                        <option value="set">Change Set Value</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="settingButtons">
+                <button id="saveButton" type="button" class="btn btn-primary">Save</button>
+                <button id="cancelButton" type="button" class="btn btn-primary">Cancel</button>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/tableau.extensions.1.latest.min.js"></script>
+    <script type="text/javascript" src="js/dialog.js"></script>
+</html>
