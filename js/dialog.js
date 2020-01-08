@@ -77,9 +77,41 @@
 
         });
 
+        // enable action field list if action is chosen
+        $("#dbAction").on('change','', function() {
+            if ($("#dbAction").val() != "none") {
+                $("#actionField").removeAttr("disabled");
+                $("#parameterSet").removeAttr("disabled");
+                parameterListUpdate();
+            } else {
+                $("#actionField").attr("disabled","true");
+                $("#parameterSet").attr("disabled","true");
+            }
+        })
+
         // set button functions
         $('#cancelButton').click(closeDialog);
         $('#saveButton').click(saveButton);
+    }
+
+    function parameterListUpdate() {
+        var dbAction = tableau.extensions.settings.get("dbAction");
+        var parameterSet = tableau.extensions.settings.get("parameterSet");
+
+        // populate list of parameters
+        if ((dbAction != undefined && dbAction != "none") || $("#dbAction").val() != "none") {
+            tableau.extensions.dashboardContent.dashboard.getParametersAsync().then(function (parameters) {
+                $("#parameterSet").text("");
+                $("#parameterSet").append("<option disabled='true' selected='true'>-- Select the parameter/set to be changed by the action --</option>");
+                parameters.forEach(function (current_param) {
+                    if (parameterSet != undefined && parameterSet == current_param.name) {
+                        $("#parameterSet").append("<option value='" + current_param.name + "' selected='true'>" + current_param.name +"</option>");
+                    } else {
+                        $("#parameterSet").append("<option value='" + current_param.name + "'>" + current_param.name +"</option>");
+                    }
+                });
+             });
+        } 
     }
 
 
@@ -87,7 +119,11 @@
         // populate field names and select chosen value if it exists
         var urlField = tableau.extensions.settings.get("urlField");
         var labelField = tableau.extensions.settings.get("labelField");
-        var worksheet = tableau.extensions.dashboardContent.dashboard.worksheets.find(function (sheet) {
+        var actionField = tableau.extensions.settings.get("actionField");
+        var dbAction = tableau.extensions.settings.get("dbAction");
+
+        var dashboard = tableau.extensions.dashboardContent.dashboard;
+        var worksheet = dashboard.worksheets.find(function (sheet) {
             return sheet.name === worksheetName;
         });
 
@@ -117,12 +153,24 @@
                 } else {
                     $("#labelField").append("<option value='" + current_value.fieldName + "'>" + current_value.fieldName + "</option>");
                 }
+
+                // action field list
+                if (actionField != undefined && current_value.fieldName == actionField) {
+                    $("#actionField").append("<option value='" + current_value.fieldName + "' selected='true'>" + current_value.fieldName + "</option>");
+                } else {
+                    $("#actionField").append("<option value='" + current_value.fieldName + "'>" + current_value.fieldName + "</option>");
+                }
             });
 
         });
 
+        
+
         $("#imageUrlField").removeAttr("disabled");
         //$("#labelField").removeAttr("disabled");
+        if (dbAction != undefined && dbAction != "none") {
+            $("#actionField").removeAttr("disabled");
+        }
     }
 
     function closeDialog() {
@@ -159,6 +207,16 @@
             tableau.extensions.settings.erase("labelField");
             tableau.extensions.settings.erase("lblVerAllign");
             tableau.extensions.settings.erase("lblHorAllign");
+        }
+
+        tableau.extensions.settings.set("dbAction",$("#dbAction").val());
+
+        if ($("#dbAction").val() != "none") {
+            tableau.extensions.settings.set("actionField",$("#actionField").val());
+            tableau.extensions.settings.set("parameterSet",$("#parameterSet").val());
+        } else {
+            tableau.extensions.settings.erase("actionField");
+            tableau.extensions.settings.erase("parameterSet");
         }
 
 

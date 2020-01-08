@@ -58,7 +58,6 @@
                                     <select id="lblVerAllign" disabled="true">
                                             <option disabled = "true" selected="true"></option>
                                             <option value="top">Top</option>
-                                            <option value="middle">Middle</option>
                                             <option value="bottom">Bottom</option>
                                         </select>
                                 </td>
@@ -66,10 +65,16 @@
                             <tr>
                                 <td>Dashboard Action</td>
                                 <td>
-                                    <select id="dbAction" disabled="true">
-                                        <option selected="true">None</option>
+                                    <select id="dbAction">
+                                        <option selected="true" value="none">None</option>
                                         <option value="parameter">Change Parameter Value</option>
-                                        <option value="set">Change Set Value</option>
+                                        <!--<option value="set">Change Set Value</option>-->
+                                    </select>
+                                    <select id="actionField" disabled="true">
+                                        <option disabled="true" selected="true">-- Select the field which will be associated with the action --</option>
+                                    </select>
+                                    <select id="parameterSet" disabled="true">
+                                        <option disabled="true" selected="true">-- Select the parameter/set to be changed by the action --</option>
                                     </select>
                                 </td>
                             </tr>
